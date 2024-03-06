@@ -187,12 +187,14 @@ void NavigationSystem::handleSetMode(
     mode_.id == navigation_system_interfaces::msg::Mode::SLAM)
   {
     clean_node("slam_toolbox");
+    reset_node("map_server");
     startup_node("amcl");
     response->message = "Mode changed to AMCL";
   } else if (mode.id == navigation_system_interfaces::msg::Mode::SLAM &&
     mode_.id == navigation_system_interfaces::msg::Mode::AMCL)
   {
     clean_node("amcl");
+    reset_node("map_server");
     startup_node("slam_toolbox");
     response->message = "Mode changed to SLAM";
   } else if (mode_.id == navigation_system_interfaces::msg::Mode::NO_MODE &&

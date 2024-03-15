@@ -65,8 +65,7 @@ def generate_launch_description():
                        'waypoint_follower',
                        'velocity_smoother'
                        ]
-    
-    # Llama al launcher navigation_launch.py de este mismo paquete
+
     localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(navigation_system_dir, 'launch', 'localization_launch.py')
@@ -91,7 +90,7 @@ def generate_launch_description():
 
     slam_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(slam_dir, 'launch', 'online_async_launch.py')
+            os.path.join(slam_dir, 'launch', 'online_sync_launch.py')
         ),
         launch_arguments={
             'use_sim_time': use_sim_time,
@@ -116,7 +115,7 @@ def generate_launch_description():
         name='navigation_system_node',
         output='screen',
         parameters=[{'nodes': lifecycle_nodes,
-                     'mode': 'node_mode'}]
+                     'mode': 'no_mode'}]
     )
 
     ld = LaunchDescription()

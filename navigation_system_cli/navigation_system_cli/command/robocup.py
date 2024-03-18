@@ -16,15 +16,15 @@ from ros2cli.command import add_subparsers_on_demand
 from ros2cli.command import CommandExtension
 
 
-class SetCommand(CommandExtension):
-    """Various navigation_system related sub-commands to set."""
+class RobocupCommand(CommandExtension):
+    """Various navigation_system related sub-commands to robocup."""
 
     def add_arguments(self, parser, cli_name):
         self._subparser = parser
         # get verb extensions and let them add their arguments
         # add arguments and sub-commands of verbs
         add_subparsers_on_demand(
-            parser, cli_name, '_verb', 'set.verb', required=False)
+            parser, cli_name, '_verb', 'robocup.verb', required=False)
 
     def main(self, *, parser, args):
         if not hasattr(args, '_verb'):

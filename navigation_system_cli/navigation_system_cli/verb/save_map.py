@@ -15,27 +15,7 @@
 from ros2cli.verb import VerbExtension
 from ros2cli.node.strategy import NodeStrategy
 from ros2cli.node.strategy import add_arguments
-from navigation_system_interfaces.srv import SetMap
 from slam_toolbox.srv import SaveMap
-
-
-class SetMapVerb(VerbExtension):
-    """Set map."""
-    def add_arguments(self, parser, cli_name):
-        add_arguments(parser)
-        parser.add_argument(
-            'map',
-            help='Path to the map file')
-
-    def main(self, *, args):
-        with NodeStrategy(args) as node:
-            client = node.create_client(
-                SetMap, '/navigation_system_node/set_map')
-            client.wait_for_service()
-            request = SetMap.Request()
-            request.map_path = args.map
-            client.call_async(request)
-        return 0
 
 
 class SaveMapVerb(VerbExtension):

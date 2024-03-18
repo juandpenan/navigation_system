@@ -21,19 +21,20 @@ from navigation_system_interfaces.msg import Mode
 
 class SetModeVerb(VerbExtension):
     """Set mode."""
-  
+
     def add_arguments(self, parser, cli_name):
         add_arguments(parser)
-        arg = parser.add_argument(
+        parser.add_argument(
             'mode',
             help='Mode: no_mode, amcl or slam')
 
     def main(self, *, args):
         with NodeStrategy(args) as node:
-            client = node.create_client(SetMode, '/navigation_system_node/set_mode')
+            client = node.create_client(
+                SetMode,'/navigation_system_node/set_mode')
             client.wait_for_service()
             request = SetMode.Request()
-            
+
             if (args.mode == "no_mode"):
                 request.mode.id = Mode.NO_MODE
             elif (args.mode == "amcl"):

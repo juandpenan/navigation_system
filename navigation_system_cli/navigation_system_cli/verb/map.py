@@ -22,19 +22,21 @@ class SetMapVerb(VerbExtension):
     """Set map."""
     def add_arguments(self, parser, cli_name):
         add_arguments(parser)
-        arg = parser.add_argument(
+        parser.add_argument(
             'map',
             help='Path to the map file')
 
     def main(self, *, args):
         with NodeStrategy(args) as node:
-            client = node.create_client(SetMap, '/navigation_system_node/set_map')
+            client = node.create_client(
+                SetMap, '/navigation_system_node/set_map')
             client.wait_for_service()
             request = SetMap.Request()
             request.map_path = args.map
             client.call_async(request)
         return 0
-    
+
+
 class SaveMapVerb(VerbExtension):
     """Save map."""
 

@@ -31,7 +31,7 @@ class SetModeVerb(VerbExtension):
     def main(self, *, args):
         with NodeStrategy(args) as node:
             client = node.create_client(
-                SetMode,'/navigation_system_node/set_mode')
+                SetMode, 'navigation_system_node/set_mode')
             client.wait_for_service()
             request = SetMode.Request()
 

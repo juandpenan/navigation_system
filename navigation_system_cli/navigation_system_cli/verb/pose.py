@@ -66,8 +66,9 @@ class SetPoseVerb(VerbExtension):
         with NodeStrategy(args) as node:
             node.get_logger().info('Set pose')
             publisher = node.create_publisher(
-                PoseWithCovarianceStamped, '/initialpose', 10)
+                PoseWithCovarianceStamped, 'initialpose', 10)
             msg = PoseWithCovarianceStamped()
+            msg.header.frame_id = "map"
 
             if args.x:
                 msg.pose.pose.position.x = float(args.x)
@@ -86,8 +87,12 @@ class SetPoseVerb(VerbExtension):
             else:
                 quaternion = Quaternion()
                 quaternion = self.quaternion_from_euler(
-                    0, 0,float(args.yaw_rotation))
+                    0, 0, float(args.yaw_rotation))
                 msg.pose.pose.orientation = quaternion
+
+            msg.pose.covariance[0] = 0.25
+            msg.pose.covariance[7] = 0.25
+            msg.pose.covariance[35] = 0.06853891945200942
 
             publisher.publish(msg)
 

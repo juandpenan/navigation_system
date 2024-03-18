@@ -22,6 +22,7 @@ from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
 
+
 def generate_launch_description():
     
     navigation_system_dir = get_package_share_directory('navigation_system')
@@ -115,7 +116,7 @@ def generate_launch_description():
         name='navigation_system_node',
         output='screen',
         parameters=[{'nodes': lifecycle_nodes,
-                     'mode': 'no_mode'}]
+                     'mode': 'amcl'}]
     )
 
     ld = LaunchDescription()

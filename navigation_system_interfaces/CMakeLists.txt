@@ -14,6 +14,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Mode.msg"
   "srv/SetMap.srv"
   "srv/SetMode.srv"
+  "srv/SetTruncateDistance.srv"
   DEPENDENCIES std_msgs
 )
 

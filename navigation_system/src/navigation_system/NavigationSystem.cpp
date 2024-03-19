@@ -48,6 +48,7 @@ void NavigationSystem::start_services()
 {
   std::string map_service = std::string(this->get_name()) + "/set_map";
   std::string mode_service = std::string(this->get_name()) + "/set_mode";
+  std::string truncate_distance_service = std::string(this->get_name()) + "/set_truncate_distance";
 
   set_map_service_ =
     this->create_service<navigation_system_interfaces::srv::SetMap>(
@@ -61,6 +62,13 @@ void NavigationSystem::start_services()
     mode_service,
     std::bind(
       &NavigationSystem::handleSetMode, this,
+      std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
+  set_truncate_distance_service_ =
+    this->create_service<navigation_system_interfaces::srv::SetTruncateDistance>(
+    truncate_distance_service,
+    std::bind(
+      &NavigationSystem::handleSetTruncateDistance, this,
       std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
 
@@ -227,6 +235,17 @@ void NavigationSystem::handleSetMode(
 
   mode_ = mode;
 
+  response->success = true;
+}
+
+void NavigationSystem::handleSetTruncateDistance(
+  const std::shared_ptr<rmw_request_id_t> request_header,
+  const std::shared_ptr<navigation_system_interfaces::srv::SetTruncateDistance::Request> request,
+  const std::shared_ptr<navigation_system_interfaces::srv::SetTruncateDistance::Response> response)
+{
+  (void)request_header;
+
+  response->xml_path = generate_xml_file(dynamic_following_xml, request->distance);
   response->success = true;
 }
 

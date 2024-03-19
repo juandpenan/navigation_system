@@ -20,8 +20,10 @@
 #include "rcl_interfaces/msg/parameter.hpp"
 #include "lifecycle_msgs/msg/transition.hpp"
 #include "lifecycle_msgs/srv/change_state.hpp"
+#include "navigation_system/utils.hpp"
 #include "navigation_system_interfaces/srv/set_map.hpp"
 #include "navigation_system_interfaces/srv/set_mode.hpp"
+#include "navigation_system_interfaces/srv/set_truncate_distance.hpp"
 #include "navigation_system_interfaces/msg/mode.hpp"
 
 namespace navigation_system
@@ -56,9 +58,16 @@ private:
     const std::shared_ptr<navigation_system_interfaces::srv::SetMode::Request> request,
     const std::shared_ptr<navigation_system_interfaces::srv::SetMode::Response> response);
 
+  void handleSetTruncateDistance(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<navigation_system_interfaces::srv::SetTruncateDistance::Request> request,
+    const std::shared_ptr<navigation_system_interfaces::srv::SetTruncateDistance::Response> response);
+
   rclcpp::Client<rcl_interfaces::srv::SetParameters>::SharedPtr change_parameter_client_;
   rclcpp::Service<navigation_system_interfaces::srv::SetMap>::SharedPtr set_map_service_;
   rclcpp::Service<navigation_system_interfaces::srv::SetMode>::SharedPtr set_mode_service_;
+  rclcpp::Service<navigation_system_interfaces::srv::SetTruncateDistance>::SharedPtr
+    set_truncate_distance_service_;
 
   std::vector<std::string> nodes_;
   navigation_system_interfaces::msg::Mode mode_;

@@ -17,20 +17,46 @@
 namespace navigation_system
 {
 
-NavigationSystem::NavigationSystem()
-: Node("navigation_system_node")
+NavigationSystem::NavigationSystem(const rclcpp::NodeOptions & options)
+: CascadeLifecycleNode("navigation_system", options)
 {
   message("NavigationSystem constructor", 1);
 
-  declare_parameter("nodes", rclcpp::PARAMETER_STRING_ARRAY);
-  declare_parameter("mode", rclcpp::PARAMETER_STRING);
+  declare_parameter("nodes", nodes_);
+  declare_parameter("mode", std::string());
+}
 
-  nodes_ = this->get_parameter("nodes").as_string_array();
-  auto mode = this->get_parameter("mode").as_string();
+using CallbackReturnT =
+  rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+
+CallbackReturnT
+NavigationSystem::on_configure(const rclcpp_lifecycle::State & state)
+{
+  (void)state;
+
+  get_parameter("nodes", nodes_);
+  std::string mode;
+  get_parameter("mode", mode);
 
   set_initial_mode(mode);
   start_services();
   startup();
+
+  return CallbackReturnT::SUCCESS;
+}
+
+CallbackReturnT
+NavigationSystem::on_activate(const rclcpp_lifecycle::State & state)
+{
+  (void)state;
+  return CallbackReturnT::SUCCESS;
+}
+
+CallbackReturnT
+NavigationSystem::on_deactivate(const rclcpp_lifecycle::State & state)
+{
+  (void)state;
+  return CallbackReturnT::SUCCESS;
 }
 
 void NavigationSystem::set_initial_mode(const std::string & mode)

@@ -15,7 +15,7 @@
 #ifndef NAVIGATION_SYSTEM__NAVIGATION_SYSTEM_HPP_
 #define NAVIGATION_SYSTEM__NAVIGATION_SYSTEM_HPP_
 
-#include "rclcpp/rclcpp.hpp"
+
 #include "rcl_interfaces/srv/set_parameters.hpp"
 #include "rcl_interfaces/msg/parameter.hpp"
 #include "lifecycle_msgs/msg/transition.hpp"
@@ -26,13 +26,24 @@
 #include "navigation_system_interfaces/srv/set_truncate_distance.hpp"
 #include "navigation_system_interfaces/msg/mode.hpp"
 
+#include "rclcpp/rclcpp.hpp"
+#include "rclcpp_cascade_lifecycle/rclcpp_cascade_lifecycle.hpp"
+
 namespace navigation_system
 {
 
-class NavigationSystem : public rclcpp::Node
+class NavigationSystem : public rclcpp_cascade_lifecycle::CascadeLifecycleNode
 {
 public:
-  NavigationSystem();
+  NavigationSystem(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
+
+  using CallbackReturnT =
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+
+  CallbackReturnT on_configure(const rclcpp_lifecycle::State & state);
+  CallbackReturnT on_activate(const rclcpp_lifecycle::State & state);
+  CallbackReturnT on_deactivate(const rclcpp_lifecycle::State & state);
+
   void startup();
   void reset();
 

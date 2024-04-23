@@ -8,12 +8,14 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_cascade_lifecycle REQUIRED)
 find_package(rcl_interfaces REQUIRED)
 find_package(lifecycle_msgs REQUIRED)
 find_package(navigation_system_interfaces REQUIRED)
 
 set(dependencies
   rclcpp
+  rclcpp_cascade_lifecycle
   rcl_interfaces
   lifecycle_msgs
   navigation_system_interfaces
@@ -53,5 +55,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+ament_export_include_directories(include)
+ament_export_libraries(${PROJECT_NAME})
 ament_export_dependencies(${dependencies})
+
 ament_package()

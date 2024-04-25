@@ -1,4 +1,5 @@
 float64 distance
+string xml_content
 
 ---
 bool success

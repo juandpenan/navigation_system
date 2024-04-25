@@ -271,7 +271,7 @@ void NavigationSystem::handleSetTruncateDistance(
 {
   (void)request_header;
 
-  response->xml_path = generate_xml_file(dynamic_following_xml, request->distance);
+  response->xml_path = generate_xml_file(request->xml_content, request->distance);
   response->success = true;
 }
 

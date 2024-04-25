@@ -34,6 +34,7 @@ def generate_launch_description():
     rviz = LaunchConfiguration('rviz')
     map_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
+    nav_mode = LaunchConfiguration('nav_mode')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time', default_value='false')
@@ -54,6 +55,9 @@ def generate_launch_description():
             'params',
             'tiago_nav_params.yaml')
     )
+    declare_nav_mode_cmd = DeclareLaunchArgument(
+        'nav_mode', default_value='amcl')
+
 
     lifecycle_nodes = ['map_server',
                        'amcl',
@@ -118,7 +122,7 @@ def generate_launch_description():
         name='navigation_system_node',
         output='screen',
         parameters=[{'nodes': lifecycle_nodes,
-                     'mode': 'amcl'}]
+                     'mode': nav_mode}]
     )
 
     ld = LaunchDescription()
@@ -131,5 +135,6 @@ def generate_launch_description():
     ld.add_action(slam_cmd)
     ld.add_action(rviz_cmd)
     ld.add_action(navigation_system_node)
+    ld.add_action(declare_nav_mode_cmd)
 
     return ld

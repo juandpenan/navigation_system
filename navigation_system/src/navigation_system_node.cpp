@@ -13,11 +13,15 @@
 // limitations under the License.
 
 #include "navigation_system/NavigationSystem.hpp"
+#include "lifecycle_msgs/msg/transition.hpp"
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<navigation_system::NavigationSystem>();
+  node->trigger_transition(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE);
+  node->trigger_transition(lifecycle_msgs::msg::Transition::TRANSITION_ACTIVATE);
+
 
   rclcpp::spin(node->get_node_base_interface());
 

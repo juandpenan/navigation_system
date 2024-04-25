@@ -34,6 +34,7 @@ def generate_launch_description():
     rviz = LaunchConfiguration('rviz')
     map_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
+    slam_params_file = LaunchConfiguration('params_file')
     nav_mode = LaunchConfiguration('nav_mode')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -54,6 +55,13 @@ def generate_launch_description():
             robocup_dir,
             'params',
             'tiago_nav_params.yaml')
+    )
+
+    declare_slam_params_cmd = DeclareLaunchArgument(
+        'slam_params_file', default_value=os.path.join(
+            robocup_dir,
+            'params',
+            'tiago_nav_follow_params.yaml')
     )
     declare_nav_mode_cmd = DeclareLaunchArgument(
         'nav_mode', default_value='amcl')
@@ -99,7 +107,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             'use_sim_time': use_sim_time,
-            'params_file': params_file,
+            'params_file': slam_params_file,
             'autostart': 'false',
             'use_lifecycle_manager': 'true'
         }.items()
@@ -130,11 +138,12 @@ def generate_launch_description():
     ld.add_action(declare_use_rviz_cmd)
     ld.add_action(declare_map_cmd)
     ld.add_action(declare_nav_params_cmd)
+    ld.add_action(declare_nav_mode_cmd)
+    ld.add_action(declare_slam_params_cmd)
     ld.add_action(localization_cmd)
     ld.add_action(navigation_cmd)
     ld.add_action(slam_cmd)
     ld.add_action(rviz_cmd)
     ld.add_action(navigation_system_node)
-    ld.add_action(declare_nav_mode_cmd)
 
     return ld

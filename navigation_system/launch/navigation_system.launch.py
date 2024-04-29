@@ -24,7 +24,7 @@ from launch.conditions import IfCondition
 
 
 def generate_launch_description():
-    
+
     navigation_system_dir = get_package_share_directory('navigation_system')
     nav2_dir = get_package_share_directory('nav2_bringup')
     robocup_dir = get_package_share_directory('robocup_bringup')
@@ -35,7 +35,7 @@ def generate_launch_description():
     map_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
     slam_params_file = LaunchConfiguration('params_file')
-    nav_mode = LaunchConfiguration('nav_mode')
+    nav_mode = LaunchConfiguration('mode')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time', default_value='false')
@@ -64,7 +64,7 @@ def generate_launch_description():
             'tiago_nav_follow_params.yaml')
     )
     declare_nav_mode_cmd = DeclareLaunchArgument(
-        'nav_mode', default_value='amcl')
+        'mode', default_value='amcl')
 
 
     lifecycle_nodes = ['map_server',

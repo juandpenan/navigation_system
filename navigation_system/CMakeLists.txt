@@ -12,6 +12,7 @@ find_package(rclcpp_cascade_lifecycle REQUIRED)
 find_package(rcl_interfaces REQUIRED)
 find_package(lifecycle_msgs REQUIRED)
 find_package(navigation_system_interfaces REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 set(dependencies
   rclcpp
@@ -19,6 +20,7 @@ set(dependencies
   rcl_interfaces
   lifecycle_msgs
   navigation_system_interfaces
+  ament_index_cpp
 )
 
 include_directories(include)

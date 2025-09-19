@@ -38,7 +38,7 @@ def generate_launch_description():
     nav_mode = LaunchConfiguration('mode')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
-        'use_sim_time', default_value='false')
+        'use_sim_time', default_value='False')
 
     declare_use_rviz_cmd = DeclareLaunchArgument(
         'rviz', default_value='False')

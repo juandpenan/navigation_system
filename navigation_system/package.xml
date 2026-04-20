@@ -12,6 +12,7 @@
   <depend>rcl_interfaces</depend>
   <depend>rclcpp_cascade_lifecycle</depend>
   <depend>ament_index_cpp</depend>
+  <exec_depend>nav2_bringup</exec_depend>
 
   <depend>lifecycle_msgs</depend>
   <depend>navigation_system_interfaces</depend>

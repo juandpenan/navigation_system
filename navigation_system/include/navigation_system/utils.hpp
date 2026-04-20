@@ -60,7 +60,8 @@ std::string nav_to_pose_truncated_xml =
   </BehaviorTree>
 </root>)";
 
-std::string dynamic_following_xml = R"(<root main_tree_to_execute="MainTree">
+std::string dynamic_following_xml =
+  R"(<root main_tree_to_execute="MainTree">
   <BehaviorTree ID="MainTree">
     <PipelineSequence name="NavigateWithReplanning">
       <RateController hz="1.0">
